@@ -1,26 +1,14 @@
-Web Application Deployment with CI/CD, Docker, Nginx, Prometheus & Grafana on AWS EC2
+#  Web App Deployment with CI/CD, Docker, Nginx, Prometheus & Grafana on AWS
 
-This project demonstrates a complete DevOps pipeline for deploying a React + Node.js full-stack application using modern DevOps tools and cloud infrastructure.
+This project demonstrates a **complete DevOps pipeline** for deploying a **React + Node.js application** using modern DevOps tools and AWS cloud infrastructure.
 
-The system includes:
+Whenever code is pushed to the **main branch**, GitHub Actions automatically builds Docker images, pushes them to Docker Hub, and redeploys the application on an AWS EC2 server.
 
-Frontend: React
+---
 
-Backend: Node.js / Express
+# Architecture
 
-Containerization: Docker
-
-Reverse Proxy: Nginx
-
-CI/CD Pipeline: GitHub Actions
-
-Monitoring: Prometheus + Grafana
-
-Infrastructure: AWS EC2
-
-The application is automatically deployed whenever code is pushed to the main branch.
-
-Architecture
+```
 Developer
    │
    │ Push Code
@@ -44,19 +32,28 @@ AWS EC2 Instance
    ├── React Frontend Container
    ├── Node Backend Container
    ├── Prometheus (Metrics Collection)
-   └── Grafana (Visualization Dashboard)
-Technologies Used
-Technology	Purpose
-React	Frontend UI
-Node.js / Express	Backend API
-Docker	Containerization
-Docker Compose	Multi-container orchestration
-Nginx	Reverse proxy
-GitHub Actions	CI/CD automation
-AWS EC2	Cloud hosting
-Prometheus	Metrics collection
-Grafana	Monitoring dashboards
-Project Structure
+   └── Grafana (Monitoring Dashboard)
+```
+
+---
+
+# Technologies Used
+
+- **React** – Frontend UI  
+- **Node.js / Express** – Backend API  
+- **Docker** – Containerization  
+- **Docker Compose** – Multi-container management  
+- **Nginx** – Reverse proxy server  
+- **GitHub Actions** – CI/CD automation  
+- **AWS EC2** – Cloud hosting  
+- **Prometheus** – Metrics collection  
+- **Grafana** – Monitoring dashboards  
+
+---
+
+# Project Structure
+
+```
 project-root
 │
 ├── client/                 # React frontend
@@ -69,94 +66,125 @@ project-root
 ├── nginx.conf              # Nginx reverse proxy configuration
 ├── prometheus.yml          # Prometheus configuration
 │
-└── .github
-    └── workflows
+└── .github/
+    └── workflows/
         └── deploy.yml      # GitHub Actions CI/CD pipeline
-Docker Containers
+```
+
+---
+
+# Docker Containers
 
 The application runs using the following containers:
 
-Container	Description
-frontend	React frontend
-backend	Node.js API
-nginx	Reverse proxy server
-prometheus	Monitoring metrics
-grafana	Visualization dashboards
-CI/CD Pipeline (GitHub Actions)
+| Container | Description |
+|-----------|-------------|
+| frontend | React frontend |
+| backend | Node.js API |
+| nginx | Reverse proxy server |
+| prometheus | Metrics collection |
+| grafana | Monitoring dashboard |
 
-The pipeline automatically performs the following steps when code is pushed:
+---
 
-Checkout the repository
+# CI/CD Pipeline (GitHub Actions)
 
-Build Docker images for frontend and backend
+The CI/CD pipeline performs these steps automatically:
 
-Push images to Docker Hub
+1. Checkout the repository
+2. Build Docker images for frontend and backend
+3. Push Docker images to Docker Hub
+4. Connect to AWS EC2 via SSH
+5. Pull the latest images
+6. Restart containers using Docker Compose
 
-Connect to AWS EC2 via SSH
+Example deployment command:
 
-Pull latest Docker images
-
-Restart containers using Docker Compose
-
-Example workflow snippet:
-
+```bash
 docker compose pull
 docker compose up -d --remove-orphans
-AWS Deployment
+```
 
-The application is hosted on an AWS EC2 Ubuntu instance.
+---
 
-Ports used:
+# AWS Deployment
 
-Port	Service
-80	Application via Nginx
-3000	Grafana dashboard
-9090	Prometheus
-22	SSH
-Monitoring Setup
-Prometheus
+The application runs on an **AWS EC2 Ubuntu instance**.
 
+Required ports:
+
+| Port | Service |
+|-----|--------|
+| 80 | Web Application |
+| 3000 | Grafana Dashboard |
+| 9090 | Prometheus |
+| 22 | SSH |
+
+---
+
+# Monitoring Setup
+
+### Prometheus
 Prometheus collects metrics from:
 
-Node Exporter (system metrics)
+- Node Exporter (system metrics)
+- Application containers
 
-Application services
+### Grafana
+Grafana visualizes the metrics using dashboards.
 
-Grafana
+Metrics monitored:
 
-Grafana visualizes metrics using dashboards.
+- CPU usage
+- Memory usage
+- Disk utilization
+- Network traffic
 
-Example metrics:
+---
 
-CPU usage
+# Grafana Dashboard
 
-Memory usage
+Default login credentials:
 
-Disk utilization
-
-Network traffic
-
-Grafana Dashboard
-
-Default Grafana login:
-
+```
 Username: admin
 Password: admin
+```
 
 Import dashboard:
 
+```
 Node Exporter Dashboard ID: 1860
-How to Run Locally
+```
+
+---
+
+# Run Locally
 
 Clone the repository:
 
+```bash
 git clone https://github.com/harshit075/DevOps_kadel_task.git
+```
 
-Navigate to project:
+Navigate to project folder:
 
+```bash
 cd project
+```
 
 Start containers:
 
+```bash
 docker compose up -d
+```
+
+Open the application:
+
+```
+http://localhost
+```
+
+---
+
 
